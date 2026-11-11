@@ -163,6 +163,14 @@ Run the dashboard to explore:
 
 Store, product, and category filters update the dashboard views and metrics.
 
+### Dashboard Overview
+
+![Retail Dashboard](images/dashboard_overview.png)
+
+### Inventory Recommendations
+
+![Inventory Recommendations](images/inventory_recommendations.png)
+
 ## Installation and Execution
 
 ### 1. Clone the repository
