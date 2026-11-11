@@ -1,1 +1,11 @@
-MAE: 6.015806461742311\nRMSE: 8.340931527361182\nSeasonal_Naive_MAE: 9.110587002096436\nSeasonal_Naive_RMSE: 13.066973908594239\nMAE_Improvement_vs_Naive_Pct: 33.96905753319721\nRMSE_Improvement_vs_Naive_Pct: 36.16784126372753\ntest_start: 2026-07-27\ntest_end: 2026-11-09\ntrain_rows: 7686\ntest_rows: 1908\nevaluation_note: One-step-ahead chronological holdout. Lag features during the test period use observed prior sales; this is not recursive multi-step backtesting.\n
+MAE: 6.015806461742311
+RMSE: 8.340931527361182
+Seasonal_Naive_MAE: 9.110587002096436
+Seasonal_Naive_RMSE: 13.066973908594239
+MAE_Improvement_vs_Naive_Pct: 33.96905753319721
+RMSE_Improvement_vs_Naive_Pct: 36.16784126372753
+test_start: 2026-07-27
+test_end: 2026-11-09
+train_rows: 7686
+test_rows: 1908
+evaluation_note: One-step-ahead chronological holdout. Lag features during the test period use observed prior sales; this is not recursive multi-step backtesting.

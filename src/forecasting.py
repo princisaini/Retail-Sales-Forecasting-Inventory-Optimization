@@ -77,7 +77,7 @@ def forecast_next_days(df, model, horizon=7):
 
         for step in range(1, horizon + 1):
             date = history["date"].max() + pd.Timedelta(days=step)
-            dow = date.dayofweek
+            dow = date.day_of_week
             row = {
                 "lag_1": sales[-1],
                 "lag_7": sales[-7] if len(sales) >= 7 else sales[-1],
@@ -85,7 +85,7 @@ def forecast_next_days(df, model, horizon=7):
                 "rolling_mean_28": float(np.mean(sales[-28:])),
                 "day_of_week": dow,
                 "month": date.month,
-                "day_of_year": date.dayofyear,
+                "day_of_year": date.day_of_year,
                 "is_weekend": int(dow in [5, 6]),
                 "promotion": 0,
                 "unit_price": float(last["unit_price"])

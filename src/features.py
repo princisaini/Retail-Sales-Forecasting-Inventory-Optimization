@@ -14,9 +14,9 @@ def add_features(df):
     df["rolling_mean_28"] = grouped.transform(
         lambda s: s.shift(1).rolling(28, min_periods=7).mean()
     )
-    df["day_of_week"] = df["date"].dt.dayofweek
+    df["day_of_week"] = df["date"].dt.day_of_week
     df["month"] = df["date"].dt.month
-    df["day_of_year"] = df["date"].dt.dayofyear
+    df["day_of_year"] = df["date"].dt.day_of_year
     df["is_weekend"] = df["day_of_week"].isin([5, 6]).astype(int)
     df["promotion"] = df["promotion"].fillna(0).astype(int)
     return df

@@ -20,7 +20,9 @@ def create_inventory_recommendations(
     """
     recommendations = []
 
-    for (store, product), group in df.groupby(["store_id", "product_id"]):
+    for group_index, ((store, product), group) in enumerate(
+        df.groupby(["store_id", "product_id"], sort=True)
+    ):
         group = group.sort_values("date")
         recent = group.tail(56)["units_sold"].astype(float)
         daily_mean = float(recent.mean())
@@ -45,8 +47,27 @@ def create_inventory_recommendations(
 
         # Reproducible simulated on-hand stock: approximately eight days
         # of recent average demand, with a small product-specific offset.
-        on_hand = max(0, int(round(daily_mean * 8 + (len(product) * 3))))
+        # Deterministic inventory scenarios for dashboard demonstration.
+        # These are simulated stock levels, NOT actual retail inventory.
+
+        scenario_type = ["Low stock", "Healthy stock", "Excess stock"][
+            group_index % 3
+        ]
+
+        if scenario_type == "Low stock":
+            on_hand = max(0, int(np.floor(lead_time_demand * 0.5)))
+
+        elif scenario_type == "Healthy stock":
+            on_hand = max(
+                0,
+                int(np.ceil((reorder_point + order_up_to) / 2))
+            )
+
+        else:  # Excess stock
+            on_hand = max(0, int(np.ceil(order_up_to * 1.5)))
+
         inventory_position = on_hand
+        
 
         reorder_required = inventory_position <= reorder_point
 
@@ -68,6 +89,7 @@ def create_inventory_recommendations(
         )
 
         recommendations.append({
+            "inventory_scenario": scenario_type,
             "store_id": store,
             "product_id": product,
             "category": group["category"].iloc[-1],
